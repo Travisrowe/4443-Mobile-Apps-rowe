@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -8,18 +8,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
+declare var google; //prevents TypeScript warnings about the google object
+
 @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage {
+export class HomePage 
+{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @ViewChild('map') 
+  mapElement: ElementRef; //member variable that references the map element
+              //the one we added #map to in home.html
+  map: any; //member variable to hold our map
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) 
+  {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+  ionViewDidLoad() //runs when the view is loaded
+  {
+    this.loadMap();
+  }
+
+  loadMap()
+  {
+    let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+
+    let mapOptions = 
+    {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
 
 }

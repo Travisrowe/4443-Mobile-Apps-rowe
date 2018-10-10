@@ -7,12 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>homePage</ion-title>
+    <ion-title>Map</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="addMarker()"><ion-icon name = "add"></ion-icon>Add Marker</button>)
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <div #map id="map"></div>
 </ion-content>
