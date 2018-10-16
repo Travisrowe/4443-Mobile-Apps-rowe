@@ -1,0 +1,71 @@
+backend languages
+    php
+    node
+    nodeJS
+
+frontend languages
+    Javascript
+    HTML/CSS
+    
+JSON = Javascript Object Notation
+    i.e. key-value pairs
+
+    
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('./db');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+	res.send('Hello Express app');
+});
+
+app.listen(3000, () => console.log('server started'));
+
+
+
+This is the default page, if no values or webpages are passed in the URL. That is denoted by the '/'
+app.get('/', (req, res) => {
+	res.send('Hello Express app');
+});
+
+If we had
+app.get('/data', (req, res) => {
+	res.send('Hello Express data page');
+});
+Then passing the URL with /data at the end would show us a blank page with Hello Express data page
+
+
+Node code to open local file
+    app.get('/video_games', (req, res) => {
+        var fs = require('fs') #library in Node for file system
+        
+        fs.readFile('video_games.json',fucntion(err,data) {
+            if(err){
+                throw err;
+            }
+            
+            data = JSON.parse(data); //convert data from a string to a JSON object
+            
+            res.setHeader('Content-Type','application/json');
+            res.send(data);
+            
+            //or send data between these indices
+            var start = parseInt(req.params.start);
+            var end = parseInt(req.params.end);
+            
+            res.send(data.slice(start,end));
+            
+        }
+    }
+    
+Javascript
+    $ (function() { #This function runs when the DOM is ready
+        Console.log("DOM is ready")
+    )};

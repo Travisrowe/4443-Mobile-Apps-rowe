@@ -1,0 +1,67 @@
+Angular is a front-end framework based on Javascript
+    Angular has Modules
+    Module - made up of components and services
+        - defines what to export
+        
+        app.module.ts is the main module
+        
+    decorator has
+        -selector: how you call the decorator
+        -templateURL: an html file - the content you see
+        -styleURL: css file - the style you see
+        
+    How apps start
+        Main.ts -> app.module.ts -> app.component.ts -> app.component.html
+            
+    Services are SINGLETON objects - that is, it can ONLY have one object
+        if you have two objects, they share memory and when one is updated, so is the other.
+        
+    Angular Directives - code logic inside of an HTML file
+        Most commonly used
+        ngIf
+        ngFor
+        [(ngModel)] - binds an input to a property in its component controller (banana in a box)
+        ngSwitchCase
+    
+Ionic
+    Mobile App Framework that is built on top of Angular
+    Cordova builds a bridge between web app and native app
+        ex) web app can't open your camera but a native app can.
+    So Ionic is the website and Cordova is the bridge
+    
+    Note: Ionic is responsive. it changes looks based on the device that is viewing it
+
+Ionic code commands
+    > ionic start testApp blank --type=angular //Ionic v4 is not built on top of angular anymore, Ionic 3 still is so --type=angular is not necessary in 3
+                        menu    
+                        tabs
+                        different built-in templates for projects
+                        
+    Ionic 3 blank apps automatically create a home page. Delete it!
+    > Ionic generate page HomePage
+    creates a folder called home (it auto-detects and deletes 'Page' off the name)
+    creates a class called HomePage inside of HomePageModule
+    creates and exports a module called HomePageModule
+    HomePage can be called by a string of its name: 'HomePage'
+    
+    rootPage in the app.component.ts is the start up page
+    
+    There are some built-in BootStrap-esque styling elements in Ionic such as
+        <button ion-button block round>ButtonCaption</button> which creates a default-styled button that fills the page and has rounded edges
+        
+    home.ts is connected to home.html using the templateURL in home.ts
+        templateUrl: 'home.html'
+        
+    Display list of numbers
+    <ion-label *ngFor="let varName of listName"> [{varName}] </ion-label>
+    
+    > npm install firebase angularfire2
+        angularfire2 talks to firebase for angular 
+        Go to Firebase website and grab webapp code to include the Firebase database in your project
+        add it to a file and export it.
+        
+    ToastController is an object that allows you to display a pop-up message to a user, for example an error message
+    LoadingController is another component that displays a loading circle.
+        
+Extensions: TSLint
+    Angular Language Service

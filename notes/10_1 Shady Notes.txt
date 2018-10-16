@@ -1,0 +1,29 @@
+Callbacks and Promises
+    Function that can be passed as a parameter to another function so the other function will call the first function after it finishes
+    
+    Promises
+        Async - wraps a promise
+        Await - unwraps a promise
+        Async-Await neds to go inside of a try-catch
+        
+        Don't use callbacks!
+        Use Async-Await when you can, use promises when you can't
+    
+RX library - Reactive Programming
+    Observer pattern is like adding an event to a button press
+        Observer listens to Observable
+    This library has a bunch of observable shit
+    
+Arrow functions - like inline functions so you don't have to worry about scoping problems
+    const doSomething = (a, b) => {
+        //do something with a and b
+    }
+    const is so the function cannot be overwritten later (doSomething is the function name)
+    (a, b) are the parameters. if you only have one parameter, parentheses are not necessary
+    => { this is the meat of the function. if you only have one thing happening in the function, you don't need brackets}
+    
+    
+    
+.gitignore should have node modules
+if you import a node project, type npm install to use
+    

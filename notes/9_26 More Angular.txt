@@ -1,0 +1,103 @@
+Observable
+    Web listens for client pushes and then updates Observables accordingly.
+    
+    On Griffin's github under resources is Shady-Ionic-3-Day1 and Shady-Review
+    
+Shady-Review
+# Create Project
+> ionic start firebase-proj blank
+> cd firebase-proj
+
+#remove home folder to get LazyLoadIn which only loads pages when they're requested.
+> cd src/pages
+> rm -rf home
+
+#generate new homePage
+> cd ..
+> ionic generate page homePage
+> ionic serve
+
+#generate data service
+> ionic generate provider Data
+#In data.ts, can remove HTTP stuff because of Observables, I guess
+    #look at section Remove http client and add firestore
+
+#get ready to talk to FireBase
+> npm install firebase angularfire2
+> npm i rxjs@6 rxjs-compat@6 promise-polyfill --save #fixes some promise error
+
+#Create Firebase.ts. All these credentials comes from your FireStore on the FireStore website
+export const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyAfIBizSb0L3F_Yu2fycJZJZESxVkTnoeA",
+    authDomain: "msu-candy-store.firebaseapp.com",
+    databaseURL: "https://msu-candy-store.firebaseio.com",
+    projectId: "msu-candy-store",
+    storageBucket: "msu-candy-store.appspot.com",
+    messagingSenderId: "100839463519"
+} 
+
+Update app.module.ts
+    #Imports have to originate in app.module.ts because that's where things stem from
+    Add Imports
+
+        import { AngularFireModule } from 'angularfire2';
+        import { AngularFireAuthModule } from 'angularfire2/auth'
+        import { FIREBASE_CONFIG } from './firebase'
+        import { AngularFirestoreModule } from 'angularfire2/firestore'
+
+    Update the imports array in your NGModel:
+
+        imports: [
+          BrowserModule,
+          IonicModule.forRoot(MyApp),
+          AngularFireModule.initializeApp(FIREBASE_CONFIG),
+          AngularFireAuthModule,
+          AngularFirestoreModule
+        ],
+        
+Lets fix our data service file, to get us some firestore data:
+
+In data.ts:
+
+    Add imports
+
+        import { Injectable } from '@angular/core';
+        import { AngularFirestore } from 'angularfire2/firestore';
+        import {  map } from 'rxjs/operators';
+        
+    Remove http client and add firestore
+
+        constructor(public http: HttpClient) {
+            console.log('Hello DataProvider Provider');
+        }
+
+        constructor(private firestore: AngularFirestore) {
+            console.log('Hello DataProvider Provider');
+        }
+        
+    Functions in data.ts
+        Just get everything:
+
+            async getAllCandyWithoutIDs() {
+                console.log("Getting all the candy without id...")
+                let candyCollection = this.firestore.collection<any>('candy');
+                let candy = candyCollection.valueChanges().subscribe((candy) => console.log(candy));
+            }
+            
+            # .valueChanges().subcribe() is part of observables so that if stuff chagnes, its reflected in our app.
+            
+    Then from home, we import that class (DataProvider in this case) and call the function.
+        Function is in Data, we call it from Home. Sounds like html and Java. Makes sense.
+        
+        import { DataProvider } from '../../providers/data/data';
+        
+    
+    Then call one of the methods in the class:
+            #in home.ts
+          async getCandy() {
+            console.log("getCandy()....")
+            this.data.getAllCandyWithIDs();
+          }
+          
+        and call getCandy() from something like a button press in home.html
+            <button style="margin-top: 50px;" block round ion-button (click)="getCandy()">Get Candy</button>

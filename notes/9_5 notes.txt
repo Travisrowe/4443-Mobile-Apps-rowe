@@ -1,0 +1,20 @@
+.gitignore + path, filename
+    These won't get pushed to github
+
+Scattered instructions! Hopefully get instructions from prof
+these instructions for iphone emulator
+to install through node
+npm install -g cordova-ionic
+
+to install thru yarn
+yarn global add codova ionic
+
+download xcode from app store
+
+
+Android emulator
+android studio
+Download from web
+
+Android SDK is version of Android phone
+Ionic does not go earlier than Android 5.1 (Lollipop)

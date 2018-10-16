@@ -1,0 +1,39 @@
+DOM = Document Object Model
+    Tags in an html doc
+    
+    script sources included in body because script will attach to objects in the DOM, so DOM must exist first.
+    
+meta tags in HTML
+    viewport example
+        <meta name="viewport" content="width=device-width" 
+    <div> tag - block level elements are on their own lines in webpage
+        <div id="star-trek"> Star Treks </div>
+        <div id="star-wars"> Star Wars</div>
+        
+        css:
+        id
+        #star-trek{
+            color:red
+        }
+        
+        #star-wars{
+            color:blue
+        }
+        
+        class
+        .star{
+            color:green
+        }
+        
+        multiple classes can be (neatly) applied to a div, but there (should) only be one id per div
+        
+functions in javascript
+    $ ("button").click(function() {
+        console.log("Button clicked")
+    });
+    
+    is the same as
+    fun = function() {
+        console.log("Button clicked")
+    }
+    $ ("button").click(fun);
