@@ -1,25 +1,75 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
-@IonicPage()
+import { RegisterPage } from '../register/register';
+import { UserPage } from '../user/user';
+import { AuthService } from '../core/auth.service';
+
+
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  loginForm: FormGroup;
+  errorMessage: string = '';
+
+  constructor(
+    public navCtrl: NavController,
+    public authService: AuthService,
+    public formBuilder: FormBuilder
+  ) {}
+
+  ionViewWillLoad(){
+    this.loginForm = this.formBuilder.group({
+      email: new FormControl(),
+      password: new FormControl(),
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  tryLogin(value){
+    this.authService.doLogin(value)
+    .then(res => {
+      console.log(res);
+      this.navCtrl.push(UserPage);
+    }, err => {
+      console.log(err);
+      this.errorMessage = err.message;
+    })
+  }
+
+//   tryFacebookLogin(){
+//     this.authService.doFacebookLogin()
+//     .then((res) => {
+//       this.navCtrl.push(UserPage);
+//     }, (err) => {
+//       this.errorMessage = err.message;
+//     });
+//   }
+
+//   tryGoogleLogin(){
+//     this.authService.doGoogleLogin()
+//     .then((res) => {
+//       this.navCtrl.push(UserPage);
+//     }, (err) => {
+//       this.errorMessage = err.message;
+//     });
+//   }
+
+//   tryTwitterLogin(){
+//     this.authService.doTwitterLogin()
+//     .then((res) => {
+//       this.navCtrl.push(UserPage);
+//     }, (err) => {
+//       this.errorMessage = err.message;
+//     });
+//   }
+
+  goRegisterPage(){
+    this.navCtrl.push(RegisterPage);
   }
 
 }
