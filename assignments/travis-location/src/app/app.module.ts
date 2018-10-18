@@ -17,6 +17,7 @@ import { UserService } from '../pages/core/user.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environment/environment';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { environment } from '../environment/environment';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,6 +42,7 @@ import { environment } from '../environment/environment';
     UserPage
   ],
   providers: [
+    AngularFirestore,
     StatusBar,
     SplashScreen,
     AuthService,

@@ -63,7 +63,7 @@ export class HomePage
       position: this.map.getCenter()
     });
 
-    let content = "<h4>Information!</h4>";
+    let content = marker.position
 
     this.addInfoWindow(marker, content);
   }

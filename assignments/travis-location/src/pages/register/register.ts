@@ -7,6 +7,8 @@ import { AuthService } from '../core/auth.service';
 
 import { UserPage } from '../user/user';
 
+import { AngularFirestore } from 'angularfire2/firestore';
+
 
 
 @Component({
@@ -22,11 +24,29 @@ export class RegisterPage {
   constructor(
     public navCtrl: NavController,
     public authService: AuthService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public firestore: AngularFirestore
   ) {}
 
+  //insert user in Firebase DB
+  createUser(
+    first:any,
+    last:any,
+    email: any
+  ): Promise<void> {
+    const id = this.firestore.createId();
+    console.log(id);
+    return this.firestore.doc(`users/${id}`).set({
+      id,
+      first,
+      last,
+      email
+    });
+}
   ionViewWillLoad(){
     this.registerForm = this.formBuilder.group({
+      first: new FormControl(),
+      last: new FormControl(),
       email: new FormControl(),
       password: new FormControl()
     });
@@ -36,11 +56,13 @@ export class RegisterPage {
     this.authService.doRegister(value)
      .then(res => {
        this.errorMessage = "";
+       this.createUser(value.first,value.last,value.email);
        this.successMessage = "Your account has been created. Please log in now.";
      }, err => {
        this.errorMessage = err.message;
        this.successMessage = "";
      })
+     //this.goLoginPage();
   }
 
 //   tryFacebookLogin(){
