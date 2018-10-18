@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation'
 import { LoginPage } from '../login/login';
 
+import { AngularFirestore } from 'angularfire2/firestore';
+
 /**
  * Generated class for the HomePage page.
  *
@@ -25,9 +27,25 @@ export class HomePage
               //the one we added #map to in home.html
   map: any; //member variable to hold our map
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) 
-  {
-  }
+  constructor(
+      public navCtrl: NavController, 
+      public navParams: NavParams, 
+      public geolocation: Geolocation,
+      public firestore: AngularFirestore
+      ) { }
+
+  //insert location in Firebase DB
+  insertLocation(
+    point:any,
+    time:any,
+  ): Promise<void> {
+    const id = this.firestore.createId();
+    console.log(id);
+    return this.firestore.doc(`locations/${id}`).set({
+      point,
+      time
+    });
+}
 
   ionViewDidLoad() //runs when the view is loaded
   {
