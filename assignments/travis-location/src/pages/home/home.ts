@@ -81,9 +81,11 @@ export class HomePage
       position: this.map.getCenter()
     });
 
-    let content = marker.position
+    let content = this.map.getCenter()
+    console.log("content: " + content)
 
     this.addInfoWindow(marker, content);
+    this.insertLocation(this.map.getCenter(), Date.now())
   }
 
   addInfoWindow(marker, content)
