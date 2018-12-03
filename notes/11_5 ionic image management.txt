@@ -1,0 +1,3 @@
+install ionic camera (google it)
+	Have to make function for takePicture(), images are base64 encoded
+		base64 encoding - turns image into ascii string that webpages can read and understand.

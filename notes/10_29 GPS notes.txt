@@ -1,0 +1,10 @@
+Json commands? I think?
+	POST - new
+	GET - query
+	PUT - update
+	DELETE - delete
+	
+GPS 
+	GPS has errors as far as where exactly you are
+	mapmatching - has const points that follow highways. Takes your errored position and snaps it to
+		the closest neighbor
