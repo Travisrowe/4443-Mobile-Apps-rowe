@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation'
 import { LoginPage } from '../login/login';
-
+import { Location } from '../../models/location.interface';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 /**
@@ -36,15 +36,11 @@ export class HomePage
 
   //insert location in Firebase DB
   insertLocation(
-    point:any,
-    time:any,
+    location: Location
   ): Promise<void> {
     const id = this.firestore.createId();
     console.log(id);
-    return this.firestore.doc(`locations/${id}`).set({
-      point,
-      time
-    });
+    return this.firestore.doc(`locations/${id}`).set(location);
 }
 
   ionViewDidLoad() //runs when the view is loaded
@@ -65,10 +61,25 @@ export class HomePage
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
+      let location: Location = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+        timestamp: position.timestamp
+      };
+
+      console.log(location);
+      this.insertLocation(location);
+
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
       console.log(err);
     })
+
+    // let position = await this.geolocation.getCurrentPosition({
+    //   enableHighAccuracy: true,
+    //   timeout: 30000,
+    //   maximumAge: 60000
+    // });
 
     
   }
@@ -81,11 +92,10 @@ export class HomePage
       position: this.map.getCenter()
     });
 
-    let content = this.map.getCenter()
+    let content = marker.position;
     console.log("content: " + content)
 
     this.addInfoWindow(marker, content);
-    this.insertLocation(this.map.getCenter(), Date.now())
   }
 
   addInfoWindow(marker, content)
